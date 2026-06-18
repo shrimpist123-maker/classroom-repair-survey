@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>北山國中暑期教室公物維護與修繕需求調查表</title>
+  <style>
+    :root{
+      --bg:#f7f4ed;
+      --paper:#fffdf8;
+      --ink:#243026;
+      --muted:#6f776f;
+      --line:#d8d0bf;
+      --green:#536f4d;
+      --green2:#7f9b72;
+      --gold:#c79b4b;
+      --red:#b75847;
+      --blue:#486b87;
+      --shadow:0 12px 32px rgba(40,35,24,.12);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(199,155,75,.18), transparent 28%),
+        radial-gradient(circle at 88% 0%, rgba(83,111,77,.18), transparent 26%),
+        var(--bg);
+      line-height:1.65;
+    }
+    header{
+      padding:30px 18px 18px;
+      background:linear-gradient(135deg, rgba(83,111,77,.97), rgba(48,65,45,.97));
+      color:white;
+      position:relative;
+      overflow:hidden;
+    }
+    header:before{
+      content:"";position:absolute;inset:-80px -60px auto auto;width:260px;height:260px;border-radius:50%;
+      background:rgba(255,255,255,.08);
+    }
+    .hero{max-width:1120px;margin:auto;position:relative;z-index:1}
+    .kicker{font-size:15px;letter-spacing:.18em;color:#f5dba2;margin-bottom:8px}
+    h1{font-size:clamp(26px,4vw,42px);margin:0 0 8px;font-weight:900;letter-spacing:.04em}
+    .subtitle{margin:0;color:#f3eee3;max-width:860px}
+    main{max-width:1120px;margin:0 auto;padding:24px 18px 80px}
+    .notice,.card{
+      background:rgba(255,253,248,.96);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .notice{padding:18px 20px;margin:-16px 0 22px;position:relative;z-index:2}
+    .notice b{color:var(--green)}
+    .toolbar{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:16px 0 22px
+    }
+    .tabs{display:flex;gap:8px;flex-wrap:wrap}
+    .tab{
+      border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:9px 13px;border-radius:999px;
+      cursor:pointer;font-weight:700;transition:.2s;box-shadow:0 4px 10px rgba(0,0,0,.04)
+    }
+    .tab.active,.tab:hover{background:var(--green);color:white;border-color:var(--green)}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    button,.btn{
+      border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer;transition:.2s;
+      font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:7px
+    }
+    button.primary{background:var(--green);color:white}
+    button.secondary{background:#e9e2d4;color:#334033}
+    button.warn{background:#f0ded9;color:#8b3729}
+    button.info{background:#dce8ef;color:#264e67}
+    button:hover{transform:translateY(-1px);filter:brightness(.98)}
+    .section{display:none}.section.active{display:block}
+    .card{padding:22px;margin-bottom:18px}
+    h2{margin:0 0 12px;color:var(--green);font-size:25px}
+    h3{margin:18px 0 10px;color:#334033;font-size:20px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .field{grid-column:span 6}.field.full{grid-column:1/-1}.field.third{grid-column:span 4}.field.quarter{grid-column:span 3}
+    label{display:block;font-weight:800;margin:0 0 6px;color:#2d3b2f}
+    small.help{display:block;color:var(--muted);font-size:13px;margin-top:4px}
+    input,select,textarea{
+      width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);
+      padding:10px 12px;font:inherit;outline:none;transition:.2s
+    }
+    input:focus,select:focus,textarea:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(127,155,114,.18)}
+    textarea{min-height:92px;resize:vertical}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+    table{width:100%;border-collapse:collapse;min-width:880px}
+    th,td{border-bottom:1px solid #eee6d8;padding:9px;text-align:left;vertical-align:top}
+    th{background:#f1eadc;color:#364638;font-weight:900;white-space:nowrap}
+    tr:last-child td{border-bottom:0}
+    td input,td select,td textarea{min-width:120px;padding:8px;border-radius:9px}
+    td textarea{min-height:56px}
+    .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:#eee6d8;color:#516050;font-size:12px;font-weight:800}
+    .repair-card{border:1px solid var(--line);border-radius:16px;background:#fff;padding:16px;margin:14px 0;box-shadow:0 8px 18px rgba(0,0,0,.05)}
+    .repair-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+    .repair-title{font-weight:900;color:var(--green);font-size:18px}
+    .badge{border-radius:999px;padding:4px 10px;font-weight:900;font-size:13px;background:#eee;color:#333}
+    .badge.aluminum{background:#e4eee2;color:#385935}.badge.electric{background:#fff0c8;color:#745200}.badge.it{background:#dce8ef;color:#294d63}.badge.other{background:#eee6d8;color:#554b3d}
+    .summary-box{background:#fff;border:1px dashed var(--line);border-radius:14px;padding:14px;white-space:pre-wrap}
+    .category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+    .stat b{display:block;font-size:28px;color:var(--green)}
+    .photo-list{font-size:13px;color:var(--muted);margin-top:6px}
+    .required:after{content:" *";color:var(--red)}
+    .footer-note{color:var(--muted);font-size:14px;text-align:center;margin-top:26px}
+    @media(max-width:760px){.field,.field.third,.field.quarter{grid-column:1/-1}.category-grid{grid-template-columns:repeat(2,1fr)}.toolbar{display:block}.actions{margin-top:12px}main{padding-left:12px;padding-right:12px}}
+    @media print{
+      body{background:white}.toolbar,.actions,.tab,button,.notice .no-print{display:none!important}header{color:black;background:white;border-bottom:2px solid #222}.card,.notice{box-shadow:none;border:1px solid #aaa;break-inside:avoid}.section{display:block!important}main{max-width:none}.repair-card{box-shadow:none}.section:not(#summary){display:none!important}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <div class="kicker">北山國中｜總務處</div>
+      <h1>暑期教室公物維護與修繕需求調查表</h1>
+      <p class="subtitle">請各班協助完成教室公物巡檢。若有損壞、遺失、老舊、鬆脫或無法正常使用情形，請填寫精確位置並上傳照片，以利暑期安排鋁門窗、水電、資訊及其他修繕採購作業。</p>
+    </div>
+  </header>
+  <main>
+    <div class="notice">
+      <b>填寫提醒：</b>請盡量填寫「面對黑板左側第 2 扇窗」、「教室後門門鎖」、「靠走廊第 1 組插座」、「大屏右下角」等精確位置；照片建議包含近照與全景。資料會自動暫存在本機瀏覽器，也可送出至 Google Sheet，並可匯出 CSV 或 JSON 留存。
+    </div>
+
+    <div class="toolbar">
+      <div class="tabs">
+        <button class="tab active" data-target="basic">1 基本資料</button>
+        <button class="tab" data-target="inventory">2 公物總檢核</button>
+        <button class="tab" data-target="repairs">3 修繕明細</button>
+        <button class="tab" data-target="summary">4 送出總覽</button>
+      </div>
+      <div class="actions">
+        <button class="secondary" onclick="saveData()">💾 儲存</button>
+        <button class="info" onclick="exportCSV()">📄 匯出CSV</button>
+        <button class="info" onclick="exportJSON()">📦 匯出JSON</button>
+        <button class="primary" onclick="submitToGoogleSheet()">☁️ 送出至Google Sheet</button>
+        <button class="warn" onclick="clearAll()">🧹 清空</button>
+      </div>
+    </div>
+
+    <section id="basic" class="section active">
+      <div class="card">
+        <h2>一、填表基本資料</h2>
+        <div class="grid">
+          <div class="field third"><label class="required">填表日期</label><input id="date" type="date"></div>
+          <div class="field third"><label class="required">班級／教室類別</label><select id="className"><option value="">請選擇</option><option>701</option><option>801</option><option>901</option><option>其他專科教室</option></select></div>
+          <div class="field third"><label>教室名稱</label><input id="room" placeholder="選其他專科教室時填寫，例如：自然教室、資訊教室"><small class="help">選擇701、801、901時，本欄可不用填寫。</small></div>
+          <div class="field third"><label class="required">填表人身分</label><select id="role"><option value="">請選擇</option><option>導師</option><option>班長</option><option>事務股長</option><option>學生代表</option><option>行政人員</option><option>其他</option></select></div>
+          <div class="field third"><label class="required">填表人姓名</label><input id="filler" placeholder="請輸入姓名"></div>
+          <div class="field third"><label>導師姓名</label><input id="teacher" placeholder="請輸入導師姓名"></div>
+          <div class="field third"><label>聯絡方式</label><input id="contact" placeholder="分機、手機或 Line 名稱"></div>
+          <div class="field third"><label class="required">是否完成全教室巡檢</label><select id="checkedAll"><option value="">請選擇</option><option>是</option><option>否，尚有部分未檢查</option></select></div>
+          <div class="field third"><label class="required">是否有修繕或採購需求</label><select id="hasRepair"><option value="">請選擇</option><option>無，全部正常</option><option>有，已填寫下方修繕明細</option></select></div>
+          <div class="field full"><label>整體備註</label><textarea id="overallNote" placeholder="可補充本班教室整體狀況、特殊需求或暑期施工注意事項"></textarea></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="inventory" class="section">
+      <div class="card">
+        <h2>二、教室公物維護狀況總檢核</h2>
+        <p>請依教室現況完成快速檢核。若選擇「須修繕、遺失、須補充」等狀況，請至下一頁新增修繕明細。</p>
+        <div class="table-wrap">
+          <table id="inventoryTable">
+            <thead><tr><th>公物項目</th><th>預設數量</th><th>實際數量</th><th>狀況</th><th>是否需修繕/補充</th><th>備註</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="repairs" class="section">
+      <div class="card">
+        <h2>三、修繕需求明細填報</h2>
+        <p>每一項損壞設備請新增一筆。填寫越精確，越方便暑期統一請廠商估價與修繕。</p>
+        <div class="actions">
+          <button class="primary" onclick="addRepair()">＋ 新增修繕項目</button>
+          <button class="secondary" onclick="addQuick('鋁門窗')">＋ 鋁門窗</button>
+          <button class="secondary" onclick="addQuick('水電')">＋ 水電</button>
+          <button class="secondary" onclick="addQuick('資訊設備')">＋ 資訊</button>
+          <button class="secondary" onclick="addQuick('其他採購自行修繕')">＋ 其他</button>
+        </div>
+        <div id="repairList"></div>
+      </div>
+    </section>
+
+    <section id="summary" class="section">
+      <div class="card">
+        <h2>四、送出前總覽與分類統整</h2>
+        <p>請檢查資料是否完整。請檢查資料是否完整。確認後可送出至 Google Sheet，總務處即可依分類彙整暑期修繕清單。</p>
+        <div class="category-grid">
+          <div class="stat"><span>鋁門窗</span><b id="countA">0</b></div>
+          <div class="stat"><span>水電</span><b id="countE">0</b></div>
+          <div class="stat"><span>資訊</span><b id="countI">0</b></div>
+          <div class="stat"><span>其他</span><b id="countO">0</b></div>
+        </div>
+        <h3>基本資料</h3>
+        <div id="basicSummary" class="summary-box"></div>
+        <h3>修繕明細</h3>
+        <div id="repairSummary"></div>
+        <div class="actions" style="margin-top:18px">
+          <button class="primary" onclick="submitToGoogleSheet()">☁️ 送出至Google Sheet</button>
+          <button class="secondary" onclick="saveData(); alert('已儲存於本機瀏覽器。')">確認儲存本機</button>
+          <button class="info" onclick="window.print()">🖨️ 列印總覽</button>
+          <button class="info" onclick="exportCSV()">匯出修繕CSV</button>
+          <span id="submitStatus" style="font-weight:800;color:var(--green);"></span>
+        </div>
+      </div>
+    </section>
+    <p class="footer-note">北山國中總務處｜暑期教室公物維護與修繕需求調查</p>
+  </main>
+
+<script>
+const storageKey = 'bsjh_summer_public_property_survey_v1';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyfaeAPisMdwxyVpoT0mirqwLAJ2LKTpxzjDE5eebwHjbYYlT7VNHFi_VefYaLZDeyZMQ/exec';
+const inventoryItems = [
+  ['學生課桌椅','學生人數+班級共用'],['學生置物櫃','自填'],['教師講桌','1'],['教師辦公桌椅','自填'],['黑板／白板','1'],['布告欄／玻璃白板','1'],['電視大屏／電子觸碰大屏','1'],['冷氣機','2'],['冷氣遙控器','自填'],['冷氣卡','1'],['電風扇／循環扇','自填'],['電燈','自填'],['插座／開關','自填'],['門','3'],['窗戶','自填'],['窗簾','自填'],['飲水機','1'],['水龍頭／洗手台','自填'],['空氣清淨機','1或2'],['平板／平板充電設備','自填'],['平板專用筆','自填'],['環境用具','自填'],['打菜組','1'],['其他公物','自填']
+];
+const categoryOptions = ['鋁門窗','水電','資訊設備','其他採購自行修繕','不確定，請總務處判斷'];
+const itemOptions = ['門','門鎖','門弓器','窗戶','玻璃','紗窗','窗簾','冷氣','冷氣遙控器','冷氣卡','電風扇','循環扇','電燈','燈座','插座','開關','水龍頭','洗手台','飲水機','電視大屏','電子觸碰大屏','大屏遙控器','HDMI線','音源線','VGA線','喇叭','電腦','平板','平板專用筆','平板充電盒','無線網路','空氣清淨機','課桌椅','學生置物櫃','教師講桌','教師辦公桌椅','黑板／白板','布告欄','板擦機','時鐘','掃具','垃圾桶','回收桶','水桶','打菜組','其他'];
+let repairs = [];
+
+function init(){
+  document.getElementById('date').valueAsDate = new Date();
+  renderInventory();
+  loadData();
+  bindAutoSave();
+  document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>showSection(btn.dataset.target)));
+  updateSummary();
+}
+function showSection(id){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.target===id));
+  document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id));
+  if(id==='summary') updateSummary();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function renderInventory(){
+  const tbody=document.querySelector('#inventoryTable tbody'); tbody.innerHTML='';
+  inventoryItems.forEach((it,idx)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><b>${it[0]}</b></td><td>${it[1]}</td><td><input data-inv="qty" data-i="${idx}" placeholder="數量"></td><td><select data-inv="status" data-i="${idx}"><option>設備完善</option><option>設備須修繕</option><option>遺失</option><option>須補充</option><option>須汰換</option><option>無此設備</option></select></td><td><select data-inv="need" data-i="${idx}"><option>否</option><option>是</option><option>不確定</option></select></td><td><textarea data-inv="note" data-i="${idx}" placeholder="須修繕情形或其他說明"></textarea></td>`;
+    tbody.appendChild(tr);
+  });
+}
+function bindAutoSave(){
+  document.querySelectorAll('input,select,textarea').forEach(el=>{
+    el.addEventListener('change',()=>{saveData(false); updateSummary();});
+    el.addEventListener('input',()=>{saveData(false);});
+  });
+}
+function getBasic(){
+  const ids=['date','className','room','role','filler','teacher','contact','checkedAll','hasRepair','overallNote'];
+  const data={}; ids.forEach(id=>data[id]=document.getElementById(id).value); return data;
+}
+function setBasic(data={}){Object.keys(data).forEach(id=>{const el=document.getElementById(id); if(el) el.value=data[id]||'';});}
+function getInventory(){
+  return inventoryItems.map((it,idx)=>({
+    item:it[0], defaultQty:it[1],
+    qty:document.querySelector(`[data-inv="qty"][data-i="${idx}"]`)?.value||'',
+    status:document.querySelector(`[data-inv="status"][data-i="${idx}"]`)?.value||'',
+    need:document.querySelector(`[data-inv="need"][data-i="${idx}"]`)?.value||'',
+    note:document.querySelector(`[data-inv="note"][data-i="${idx}"]`)?.value||''
+  }));
+}
+function setInventory(list=[]){
+  list.forEach((row,idx)=>{
+    ['qty','status','need','note'].forEach(k=>{const el=document.querySelector(`[data-inv="${k}"][data-i="${idx}"]`); if(el) el.value=row[k]||el.value||'';});
+  });
+}
+function addQuick(cat){addRepair({category:cat});}
+function addRepair(data={}){
+  const id='r'+Date.now()+Math.random().toString(16).slice(2);
+  repairs.push({id,category:data.category||'',item:'',location:'',damage:'',impact:'仍可使用但需修繕',safety:'無',human:'不確定',solution:'先現場勘查',photos:[],note:''});
+  renderRepairs(); saveData(false);
+}
+function removeRepair(id){if(confirm('確定刪除此筆修繕項目？')){repairs=repairs.filter(r=>r.id!==id);renderRepairs();saveData(false);updateSummary();}}
+function renderRepairs(){
+  const box=document.getElementById('repairList'); box.innerHTML='';
+  if(repairs.length===0){box.innerHTML='<p class="summary-box">尚未新增修繕項目。若全班公物正常，可不新增。</p>'; return;}
+  repairs.forEach((r,idx)=>{
+    const div=document.createElement('div'); div.className='repair-card';
+    div.innerHTML=`
+      <div class="repair-head"><div class="repair-title">修繕項目第 ${idx+1} 筆 <span class="badge ${badgeClass(r.category)}">${r.category||'未分類'}</span></div><button class="warn" onclick="removeRepair('${r.id}')">刪除</button></div>
+      <div class="grid">
+        <div class="field third"><label class="required">修繕分類</label><select onchange="updateRepair('${r.id}','category',this.value)">${opts(categoryOptions,r.category,'請選擇')}</select></div>
+        <div class="field third"><label class="required">損壞設備名稱</label><select onchange="updateRepair('${r.id}','item',this.value)">${opts(itemOptions,r.item,'請選擇')}</select></div>
+        <div class="field third"><label>影響程度</label><select onchange="updateRepair('${r.id}','impact',this.value)">${opts(['無法使用','仍可使用但需修繕','外觀破損','安全疑慮','需補充或汰換'],r.impact)}</select></div>
+        <div class="field full"><label class="required">精確位置</label><input value="${escapeHtml(r.location)}" oninput="updateRepair('${r.id}','location',this.value)" placeholder="例：面對黑板左側第2扇窗、教室後門門鎖、靠走廊第1組插座"></div>
+        <div class="field full"><label class="required">損壞情形</label><textarea oninput="updateRepair('${r.id}','damage',this.value)" placeholder="請具體說明無法使用、破裂、鬆脫、異音、漏水、觸控異常等">${escapeHtml(r.damage)}</textarea></div>
+        <div class="field third"><label>是否有安全疑慮</label><select onchange="updateRepair('${r.id}','safety',this.value)">${opts(['有','無','不確定'],r.safety)}</select></div>
+        <div class="field third"><label>是否疑似人為損壞</label><select onchange="updateRepair('${r.id}','human',this.value)">${opts(['自然耗損','疑似人為','不確定'],r.human)}</select></div>
+        <div class="field third"><label>建議處理方式</label><select onchange="updateRepair('${r.id}','solution',this.value)">${opts(['請廠商修繕','採購更換','總務處簡易修繕','先現場勘查','不確定'],r.solution)}</select></div>
+        <div class="field full"><label>照片上傳</label><input type="file" accept="image/*" multiple onchange="handlePhotos('${r.id}',this.files)"><small class="help">照片會自動壓縮後上傳至指定 Google Drive；建議每筆 1～3 張。送出前請勿重新整理頁面。</small><div class="photo-list">${(r.photos||[]).map(p=>'📷 '+escapeHtml(p.name)).join('<br>')||'尚未選擇照片'}</div></div>
+        <div class="field full"><label>補充說明</label><textarea oninput="updateRepair('${r.id}','note',this.value)" placeholder="例如已發生多久、是否曾報修、是否會持續惡化">${escapeHtml(r.note)}</textarea></div>
+      </div>`;
+    box.appendChild(div);
+  });
+}
+function opts(arr,val,placeholder){return (placeholder?`<option value="">${placeholder}</option>`:'')+arr.map(o=>`<option ${o===val?'selected':''}>${o}</option>`).join('');}
+function badgeClass(cat){if(cat==='鋁門窗')return'aluminum';if(cat==='水電')return'electric';if(cat==='資訊設備')return'it';return'other';}
+function updateRepair(id,key,value){
+  const r=repairs.find(x=>x.id===id);
+  if(!r) return;
+  r[key]=value;
+  saveData(false);
+  updateSummary();
+  // 注意：不要在文字輸入時重新 renderRepairs()，否則游標會被重置，造成文字欄位無法正常輸入。
+  // 類別標籤會在切換頁面或新增/刪除/上傳照片後更新，不影響送出資料。
+}
+async function handlePhotos(id,files){
+  const r=repairs.find(x=>x.id===id);
+  if(!r) return;
+  const list=[...files];
+  if(list.length>3){ alert('每筆修繕項目建議最多上傳 3 張照片。系統將只保留前 3 張。'); }
+  const selected=list.slice(0,3);
+  const valid=[];
+  for(const f of selected){
+    if(!f.type.startsWith('image/')){ alert(f.name+' 不是圖片檔，已略過。'); continue; }
+    valid.push(await compressImageToBase64(f,1600,0.78));
+  }
+  r.photos=valid;
+  saveData(false); renderRepairs(); updateSummary();
+}
+function compressImageToBase64(file,maxWidth=1600,quality=0.78){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const img=new Image();
+      img.onload=()=>{
+        const scale=Math.min(1,maxWidth/img.width);
+        const canvas=document.createElement('canvas');
+        canvas.width=Math.round(img.width*scale);
+        canvas.height=Math.round(img.height*scale);
+        const ctx=canvas.getContext('2d');
+        ctx.drawImage(img,0,0,canvas.width,canvas.height);
+        const base64=canvas.toDataURL('image/jpeg',quality);
+        resolve({
+          name:file.name.replace(/\.[^.]+$/,'')+'.jpg',
+          type:'image/jpeg',
+          size:Math.round(base64.length*0.75),
+          originalSize:file.size,
+          base64
+        });
+      };
+      img.onerror=reject;
+      img.src=reader.result;
+    };
+    reader.onerror=reject;
+    reader.readAsDataURL(file);
+  });
+}
+function collectPayload(options={}){
+  const includePhotoBase64 = options.includePhotoBase64 === true;
+  const repairData = repairs.map(r=>({
+    ...r,
+    photos:(r.photos||[]).map(p=> includePhotoBase64 ? p : ({name:p.name,size:p.size,type:p.type,originalSize:p.originalSize}))
+  }));
+  return {basic:getBasic(),inventory:getInventory(),repairs:repairData};
+}
+function saveData(show=true){
+  const data=collectPayload({includePhotoBase64:false});
+  localStorage.setItem(storageKey,JSON.stringify(data));
+  if(show) alert('已儲存於本機瀏覽器。提醒：照片內容不會長期暫存在本機，送出前請勿重新整理頁面。');
+}
+function loadData(){
+  const raw=localStorage.getItem(storageKey); if(!raw){renderRepairs(); return;}
+  try{const data=JSON.parse(raw); setBasic(data.basic||{}); setInventory(data.inventory||[]); repairs=data.repairs||[]; renderRepairs();}catch(e){renderRepairs();}
+}
+function clearAll(){
+  if(!confirm('確定清空本表所有資料？此動作無法復原。'))return;
+  localStorage.removeItem(storageKey); location.reload();
+}
+function updateSummary(){
+  const b=getBasic();
+  document.getElementById('basicSummary').textContent = `填表日期：${b.date||''}\n班級：${b.className||''}\n教室位置：${b.room||''}\n填表人：${b.filler||''}（${b.role||''}）\n導師：${b.teacher||''}\n聯絡方式：${b.contact||''}\n完成巡檢：${b.checkedAll||''}\n修繕需求：${b.hasRepair||''}\n整體備註：${b.overallNote||''}`;
+  const counts={A:0,E:0,I:0,O:0};
+  repairs.forEach(r=>{if(r.category==='鋁門窗')counts.A++;else if(r.category==='水電')counts.E++;else if(r.category==='資訊設備')counts.I++;else counts.O++;});
+  document.getElementById('countA').textContent=counts.A;document.getElementById('countE').textContent=counts.E;document.getElementById('countI').textContent=counts.I;document.getElementById('countO').textContent=counts.O;
+  const box=document.getElementById('repairSummary');
+  if(!repairs.length){box.innerHTML='<div class="summary-box">未新增修繕明細。</div>';return;}
+  box.innerHTML=repairs.map((r,i)=>`<div class="repair-card"><b>第 ${i+1} 筆｜${escapeHtml(r.category||'未分類')}｜${escapeHtml(r.item||'未填設備')}</b><br>位置：${escapeHtml(r.location||'')}<br>損壞情形：${escapeHtml(r.damage||'')}<br>影響程度：${escapeHtml(r.impact||'')}｜安全疑慮：${escapeHtml(r.safety||'')}｜責任判斷：${escapeHtml(r.human||'')}<br>建議處理：${escapeHtml(r.solution||'')}<br>照片：${(r.photos||[]).map(p=>escapeHtml(p.name)).join('、')||'未附照片'}<br>補充：${escapeHtml(r.note||'')}</div>`).join('');
+}
+function exportJSON(){
+  saveData(false); const data=collectPayload();
+  downloadFile(JSON.stringify(data,null,2), fileBase()+'.json', 'application/json;charset=utf-8');
+}
+async function submitToGoogleSheet(){
+  saveData(false);
+  const status=document.getElementById('submitStatus');
+  const url=(GOOGLE_SCRIPT_URL||'').trim();
+  if(!url || url.includes('請貼上')){
+    alert('尚未設定 Google Apps Script Web App URL。請先依教學部署 Apps Script，並將網址貼到 HTML 內的 GOOGLE_SCRIPT_URL。');
+    return;
+  }
+  const b=getBasic();
+  if(!b.date || !b.className || !b.role || !b.filler || !b.checkedAll || !b.hasRepair){
+    alert('請先完成基本資料中的必填欄位。');
+    showSection('basic');
+    return;
+  }
+  if(b.className==='其他專科教室' && !b.room.trim()){
+    alert('選擇其他專科教室時，請填寫教室名稱。');
+    showSection('basic');
+    return;
+  }
+  status.textContent='資料送出中，請稍候…';
+  const payload=collectPayload({includePhotoBase64:true});
+  payload.submittedFrom=location.href;
+  payload.submittedAtClient=new Date().toISOString();
+  try{
+    await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+    status.textContent='已送出至 Google Sheet。';
+    alert('已送出。請到 Google Sheet 確認文字資料，並到 Google Drive 照片資料夾確認照片是否出現。');
+  }catch(err){
+    status.textContent='送出失敗，請檢查網路或 Apps Script URL。';
+    alert('送出失敗：'+err.message);
+  }
+}
+function exportCSV(){
+  const b=getBasic();
+  const headers=['班級','教室位置','填表日期','填表人','導師','分類','設備','位置','損壞情形','影響程度','安全疑慮','疑似人為','建議處理','照片檔名','補充說明'];
+  const rows=repairs.length?repairs.map(r=>[b.className,b.room,b.date,b.filler,b.teacher,r.category,r.item,r.location,r.damage,r.impact,r.safety,r.human,r.solution,(r.photos||[]).map(p=>p.name).join(' / '),r.note]):[[b.className,b.room,b.date,b.filler,b.teacher,'無修繕項目','','','','','','','','','']];
+  const csv=[headers,...rows].map(row=>row.map(csvCell).join(',')).join('\n');
+  downloadFile('\ufeff'+csv,fileBase()+'.csv','text/csv;charset=utf-8');
+}
+function fileBase(){const b=getBasic();return `北山國中_${b.className||'未填班級'}_暑期公物修繕調查`}
+function downloadFile(content,name,type){const blob=new Blob([content],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);}
+function csvCell(v){return '"'+String(v??'').replaceAll('"','""')+'"';}
+function escapeHtml(s){return String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+window.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
